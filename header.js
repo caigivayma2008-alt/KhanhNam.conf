@@ -1,8 +1,13 @@
-const version = 'V1.0.3';
+// =======================================================
+// RevenueCat Cache Buster
+// Original Logic by: DinhDuyVinh
+// Maintained by: Hoang Khanh Nam
+// =======================================================
 
-// Hàm đặt giá trị header
+var requestHeaders = $request.headers;
+
 function setHeaderValue(headers, key, value) {
-    const lowerKey = key.toLowerCase();
+    var lowerKey = key.toLowerCase();
     if (lowerKey in headers) {
         headers[lowerKey] = value;
     } else {
@@ -10,24 +15,16 @@ function setHeaderValue(headers, key, value) {
     }
 }
 
-// Lấy danh sách header từ request
-var modifiedHeaders = $request.headers;
-
-// Danh sách các header cần xóa/cập nhật
-const headersToModify = {
+// Xóa bộ nhớ đệm để ép Locket nhận cấu hình VIP mới
+var cacheHeadersToClear = {
     "X-RevenueCat-ETag": "",
     "If-None-Match": "",
     "Cache-Control": "no-cache",
     "Pragma": "no-cache"
 };
 
-// Áp dụng thay đổi cho từng header trong danh sách
-for (let key in headersToModify) {
-    setHeaderValue(modifiedHeaders, key, headersToModify[key]);
+for (var key in cacheHeadersToClear) {
+    setHeaderValue(requestHeaders, key, cacheHeadersToClear[key]);
 }
 
-// Ghi log để kiểm tra header đã bị sửa
-console.log("🛠 Modified Headers:", JSON.stringify(modifiedHeaders, null, 2));
-
-// Trả về request với headers đã chỉnh sửa
-$done({ headers: modifiedHeaders });
+$done({ headers: requestHeaders });
