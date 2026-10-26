@@ -11,7 +11,7 @@ const mapping = {
 const ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
 let obj = JSON.parse($response.body);
 
-// Dấu ấn cá nhân của bạn
+// JUSTHKN
 obj.Attention = "Locket Gold - Tự host bởi Hoàng Khánh Nam (Credit: DinhDuyVinh)";
 
 const subData = {
