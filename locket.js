@@ -1,19 +1,25 @@
+// =======================================================
+// Locket Gold Unlocker
+// Core Logic by @duyvinh09 | Refactored by Hoang Khanh Nam
+// =======================================================
+
 const mapping = {
   '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
   'Locket': ['Gold']
 };
 
-var ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
-var obj = JSON.parse($response.body);
+const ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
+let obj = JSON.parse($response.body);
 
-obj.Attention = "Bản quyền thuộc về Hoàng Khánh Nam. Chúc mừng bạn!";
+// Dấu ấn cá nhân của bạn
+obj.Attention = "Locket Gold - Tự host bởi Hoàng Khánh Nam (Credit: DinhDuyVinh)";
 
-var locket02 = {
+const subData = {
   is_sandbox: false,
   ownership_type: "PURCHASED",
   billing_issues_detected_at: null,
   period_type: "normal",
-  expires_date: "2099-12-18T01:04:17Z",
+  expires_date: "2099-12-31T23:59:59Z",
   grace_period_expires_date: null,
   unsubscribe_detected_at: null,
   original_purchase_date: "2026-10-25T01:04:18Z",
@@ -21,11 +27,11 @@ var locket02 = {
   store: "app_store"
 };
 
-var khanhnam = {
+const entData = {
   grace_period_expires_date: null,
   purchase_date: "2026-10-25T01:04:17Z",
-  product_identifier: "com.locket02.premium.yearly",
-  expires_date: "2099-12-18T01:04:17Z"
+  product_identifier: "locket_1600_1y",
+  expires_date: "2099-12-31T23:59:59Z"
 };
 
 const match = Object.keys(mapping).find(e => ua.includes(e));
@@ -34,16 +40,16 @@ if (match) {
   let [e, s] = mapping[match];
   
   if (s) {
-    khanhnam.product_identifier = s;
-    obj.subscriber.subscriptions[s] = locket02;
+    entData.product_identifier = s;
+    obj.subscriber.subscriptions[s] = subData;
   } else {
-    obj.subscriber.subscriptions["com.locket02.premium.yearly"] = locket02;
+    obj.subscriber.subscriptions["locket_1600_1y"] = subData;
   }
-
-  obj.subscriber.entitlements[e] = khanhnam;
+  
+  obj.subscriber.entitlements[e] = entData;
 } else {
-  obj.subscriber.subscriptions["com.locket02.premium.yearly"] = locket02;
-  obj.subscriber.entitlements.pro = khanhnam;
+  obj.subscriber.subscriptions["locket_1600_1y"] = subData;
+  obj.subscriber.entitlements.pro = entData;
 }
 
 $done({ body: JSON.stringify(obj) });
