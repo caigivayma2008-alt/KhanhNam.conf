@@ -1,4 +1,4 @@
-var mapping = {
+const mapping = {
   '%E8%BD%A6%E7%A5%A8%E7%A5%A8': ['vip+watch_vip'],
   'Locket': ['Gold']
 };
@@ -28,11 +28,10 @@ var khanhnam = {
   expires_date: "2099-12-18T01:04:17Z"
 };
 
-var match = Object.keys(mapping).find(e => ua.includes(e));
+const match = Object.keys(mapping).find(e => ua.includes(e));
 
 if (match) {
-  var e = mapping[match][0];
-  var s = mapping[match][1];
+  let [e, s] = mapping[match];
   
   if (s) {
     khanhnam.product_identifier = s;
