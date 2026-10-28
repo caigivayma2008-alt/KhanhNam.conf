@@ -23,14 +23,14 @@ var premiumSubscription = {
   expires_date: "2099-12-31T23:59:59Z",
   grace_period_expires_date: null,
   unsubscribe_detected_at: null,
-  original_purchase_date: "2024-10-26T01:00:00Z",
-  purchase_date: "2024-10-26T01:00:00Z",
+  original_purchase_date: "2026-10-28T08:00:00Z",
+  purchase_date: "2026-10-28T08:00:00Z",
   store: "app_store"
 };
 
 var entitlementData = {
   grace_period_expires_date: null,
-  purchase_date: "2024-10-26T01:00:00Z",
+  purchase_date: "2026-10-28T08:00:00Z",
   product_identifier: "locket_1600_1y",
   expires_date: "2099-12-31T23:59:59Z"
 };
